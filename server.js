@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(request, response) {
-  response.sendfile('index.html');
+  response.sendFile('index.html');
 });
 
 app.listen(app.get('port'), function() {

@@ -5,11 +5,12 @@ var del = require('del');
 var cleanCSS = require('gulp-clean-css');
 var minifyHTML = require('gulp-minify-html');
 var sass = require('gulp-sass');
+var bower = require('gulp-bower');
 
 var paths = {
   js: 'assets/js/**/*',
   images: 'assets/img/**/*',
-  styles: 'assets/scss/main.scss',
+  styles: 'assets/scss/**/*',
   files: 'assets/files/**/*',
   html: 'assets/html/**/*',
   build: 'public'
@@ -29,6 +30,11 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.build+'/assets/js'));
+});
+
+gulp.task('bower', function() {
+  return bower()
+    .pipe(gulp.dest(paths.build + '/assets/js/lib'))
 });
 
 // Copy all static images
@@ -56,17 +62,20 @@ gulp.task('html', ['clean'], function() {
 });
 
 gulp.task('styles', function() {
-  return gulp.src(paths.styles)
+  return gulp.src(paths.styles + 'main.scss')
     .pipe(sass())
     .pipe(cleanCSS({compatibility: 'ie9'}))
-    .pipe(gulp.dest(paths.build + "/assets/css/"));
+    .pipe(gulp.dest(paths.build + '/assets/css/'));
 });
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
+  gulp.watch(paths.files, ['files']);
+  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.styles, ['styles']);
   gulp.watch(paths.images, ['images']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts', 'images', 'styles', 'files', 'html']);
+gulp.task('default', ['watch', 'scripts', 'bower', 'images', 'styles', 'files', 'html']);
