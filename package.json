@@ -1,0 +1,27 @@
+{
+  "name": "node-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "4.13.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "2.4.0",
+    "gulp-sourcemaps": "1.6.0",
+    "del": "2.2.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-clean-css": "^2.0.3",
+    "gulp-minify-html": "^1.0.5",
+    "gulp-rename": "^1.2.2"
+
+  },
+  "engines": {
+    "node": "5.0.0"
+  }
+}
